@@ -17,6 +17,7 @@ public class PositiveTests extends BaseTest {
 	public void getBookingsTestSuccess() {
 		RestRequests reqs = new RestRequests(spec);
 		Response resp = reqs.getBookings();
+		System.out.println("Test");
 		List<BookingId> bookings = resp.as(new TypeRef<List<BookingId>>() {
 		});
 		ResponseValidations.validateSuccessStatusCode(resp.getStatusCode());
