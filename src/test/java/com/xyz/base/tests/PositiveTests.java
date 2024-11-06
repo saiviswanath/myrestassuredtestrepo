@@ -11,7 +11,7 @@ import com.xyz.base.responsevalidations.ResponseValidations;
 import com.xyz.base.utils.Report;
 
 import io.restassured.common.mapper.TypeRef;
-import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 
 public class PositiveTests extends BaseTest {
 	@Test
@@ -19,11 +19,11 @@ public class PositiveTests extends BaseTest {
 		setParametersPerTestCase("TC01", "getBookingsTestSuccess","High");
 		Report.infoStep("getBookingsTestSuccess");
 		RestRequests reqs = new RestRequests(spec);
-		Response resp = reqs.getBookings();
+		ValidatableResponse resp = reqs.getBookings();
 		Report.infoStep(resp.toString());
-		List<BookingId> bookings = resp.as(new TypeRef<List<BookingId>>() {
+		List<BookingId> bookings = resp.extract().body().as(new TypeRef<List<BookingId>>() {
 		});
-		ResponseValidations.validateSuccessStatusCode(resp.getStatusCode());
+		ResponseValidations.validateSuccessStatusCode(resp.extract().statusCode());
 		ResponseValidations.validateBookingIdResponse(bookings);
 		Report.passStep("getBookingsTestSuccess passed");
 	}
@@ -33,9 +33,9 @@ public class PositiveTests extends BaseTest {
 		setParametersPerTestCase("TC02", "getBookingsObjTestSuccess","High");
 		Report.infoStep("getBookingsObjTestSuccess");
 		RestRequests reqs = new RestRequests(spec);
-		Response resp = reqs.getBookingsById(200);
-		Booking booking = resp.as(Booking.class);
-		ResponseValidations.validateSuccessStatusCode(resp.getStatusCode());
+		ValidatableResponse resp = reqs.getBookingsById(200);
+		Booking booking = resp.extract().body().as(Booking.class);
+		ResponseValidations.validateSuccessStatusCode(resp.extract().statusCode());
 		ResponseValidations.validateBookingsResponse(booking);
 		Report.passStep("getBookingsObjTestSuccess passed");
 	}

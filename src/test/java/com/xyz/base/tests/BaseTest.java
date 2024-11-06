@@ -15,6 +15,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.xyz.base.utils.AuthUtils;
+import com.xyz.base.utils.FrameworkProperties;
 import com.xyz.base.utils.Utilities;
 
 import io.restassured.builder.RequestSpecBuilder;
@@ -71,7 +72,7 @@ public class BaseTest {
 		testCaseName.put(testCaseCount.get(), getTestName());
 		System.out.println("========== Execution Started for ==========>> " + testName.get());
 		
-		spec = new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com").build();
+		spec = new RequestSpecBuilder().setBaseUri(FrameworkProperties.getFrameworkProperties().getProperty("base-url")).build();
 		spec.header(new Header("sso_jwt", AuthUtils.getSSOJWT()));
 	}
 	

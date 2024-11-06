@@ -2,7 +2,7 @@ package com.xyz.base.httprequests;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
-import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 public class RestRequests extends BaseRequest {
@@ -11,14 +11,14 @@ public class RestRequests extends BaseRequest {
 		super(spec);
 	}
 	
-	public Response getBookings() {
-		return RestAssured.given(spec).get("/booking");
+	public ValidatableResponse getBookings() {
+		return RestAssured.given(spec).get("/booking").then().log().all();
 	}
 	
-	public Response getBookingsById(int id) {
+	public ValidatableResponse getBookingsById(int id) {
 		spec.pathParam("id", id);
 		spec.header(new Header("Accept", "application/json"));
-		return RestAssured.given(spec).get("/booking/{id}");
+		return RestAssured.given(spec).get("/booking/{id}").then().log().all();
 	}
 
 }
