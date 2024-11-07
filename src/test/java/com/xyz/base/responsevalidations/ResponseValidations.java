@@ -42,5 +42,12 @@ public class ResponseValidations {
 		asset.assertAll();	
 	}
 	
+	public static void validateUpdateBookingsResponse(Booking booking) {
+		SoftAssert asset = new SoftAssert();
+		asset.assertNotNull(booking);
+		asset.assertEquals(booking.getFirstname(), "Viswanath");	
+		asset.assertAll();	
+	}
+	
 	
 }
