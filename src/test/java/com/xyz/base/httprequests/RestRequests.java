@@ -1,6 +1,9 @@
 package com.xyz.base.httprequests;
 
+import com.xyz.base.payloads.Booking;
+
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
@@ -19,6 +22,10 @@ public class RestRequests extends BaseRequest {
 		spec.pathParam("id", id);
 		spec.header(new Header("Accept", "application/json"));
 		return RestAssured.given(spec).get("/booking/{id}").then().log().all();
+	}
+	
+	public ValidatableResponse createBooking(Booking booking) {
+		return RestAssured.given(spec).contentType(ContentType.JSON).body(booking).post("/booking").then().log().all();
 	}
 
 }

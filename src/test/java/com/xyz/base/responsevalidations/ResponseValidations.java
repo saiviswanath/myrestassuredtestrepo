@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.xyz.base.payloads.Booking;
 import com.xyz.base.payloads.BookingId;
+import com.xyz.base.payloads.BookingResponse;
 
 public class ResponseValidations {
 	
@@ -25,14 +26,20 @@ public class ResponseValidations {
 	public static void validateBookingsResponse(Booking booking) {
 		SoftAssert asset = new SoftAssert();
 		asset.assertNotNull(booking);
-		asset.assertEquals(booking.getFirstname(), "John");
-		asset.assertEquals(booking.getLastname(), "Smith");
-		asset.assertEquals(booking.getTotalprice(), 111);
+		asset.assertEquals(booking.getFirstname(), "Sai");
+		asset.assertEquals(booking.getLastname(), "Palaparthi");
+		asset.assertEquals(booking.getTotalprice(), 100);
 		asset.assertTrue(booking.isDepositpaid());
 		asset.assertEquals(booking.getAdditionalneeds(), "Breakfast");
-		asset.assertEquals(booking.getBookingdates().getCheckin(), "2018-01-01");
-		asset.assertEquals(booking.getBookingdates().getCheckout(), "2019-01-01");
+		asset.assertEquals(booking.getBookingdates().getCheckin(), "2024-11-05");
+		asset.assertEquals(booking.getBookingdates().getCheckout(), "2024-11-06");
 		asset.assertAll();
+	}
+	
+	public static void validateBookingsResponse(BookingResponse resp) {
+		SoftAssert asset = new SoftAssert();
+		asset.assertNotNull(resp);
+		asset.assertAll();	
 	}
 	
 	

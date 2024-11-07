@@ -14,12 +14,16 @@ import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.xyz.base.httprequests.RestRequests;
+import com.xyz.base.payloads.Booking;
+import com.xyz.base.payloads.BookingDates;
 import com.xyz.base.utils.AuthUtils;
 import com.xyz.base.utils.FrameworkProperties;
 import com.xyz.base.utils.Utilities;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Header;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 public class BaseTest {
@@ -118,5 +122,17 @@ public class BaseTest {
 		testCaseId.put(testCaseCount.get(), testcase_Id);
 		testCaseName.put(testCaseCount.get(), tcDesc);
 		System.out.println(tcDesc);
+	}
+	
+	protected ValidatableResponse createBooking() {
+		RestRequests reqs = new RestRequests(spec);
+		Booking booking = new Booking();
+		booking.setFirstname("Sai");booking.setLastname("Palaparthi");
+		booking.setTotalprice(100);booking.setDepositpaid(true);
+		BookingDates dates = new BookingDates();
+		dates.setCheckin("2024-11-05");dates.setCheckout("2024-11-06");
+		booking.setBookingdates(dates);
+		booking.setAdditionalneeds("Breakfast");
+		return reqs.createBooking(booking);
 	}
 }
